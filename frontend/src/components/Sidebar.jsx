@@ -40,7 +40,7 @@ const sidebarItems = [
     name: 'Alarms',
     href: '/alarms',
     icon: AlertTriangle,
-    description: 'System alerts'
+    description: 'Fault management'
   },
   // {
   //   name: 'Settings',
