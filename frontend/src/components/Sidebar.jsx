@@ -37,17 +37,17 @@ const sidebarItems = [
     description: 'View device KPIs'
   },
   {
-    name: 'Alerts',
+    name: 'Alarms',
     href: '/alarms',
     icon: AlertTriangle,
     description: 'System alerts'
   },
-  {
-    name: 'Settings',
-    href: '/settings',
-    icon: Cog,
-    description: 'System settings'
-  },
+  // {
+  //   name: 'Settings',
+  //   href: '/settings',
+  //   icon: Cog,
+  //   description: 'System settings'
+  // },
 ];
 
 const Sidebar = ({ isOpen, onClose }) => {
