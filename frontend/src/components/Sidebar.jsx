@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe, Settings, Monitor, X, AlertTriangle, Cog } from 'lucide-react';
+import { Globe, Settings, Monitor, X, AlertTriangle, Cog, BarChart, Network } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 
@@ -27,13 +27,13 @@ const sidebarItems = [
   {
     name: 'NR Network Configuration',
     href: '/nr-network-configuration',
-    icon: Monitor,
+    icon: Network,
     description: 'Configure NR networks'
   },
   {
     name: "Device KPI's",
     href: '/device-kpi',
-    icon: Monitor,
+    icon: BarChart,
     description: 'View device KPIs'
   },
   {
