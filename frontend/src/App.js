@@ -19,6 +19,7 @@ import CellRelation from './pages/CellRelation'; // Add this import
 import FreqRelation from './pages/FreqRelation'; // Add this import
 import ExternalCell from './pages/ExternalCell'; // Add this import
 import Alarms from './pages/Alarms'; // Add this import
+import DeviceKPI from './pages/DeviceKPI'; // Add this import
 import './App.css';
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/alarms" element={<Alarms />} /> {/* Add this route */}
+            <Route path="/alarms" element={<Alarms />} />
+            <Route path="/device-kpi" element={<DeviceKPI />} /> {/* Add this route */}
             <Route path="/vendor-configuration" element={<VendorConfiguration />} />
             <Route path="/device-configuration" element={<DeviceConfiguration />} />
             <Route path="/nr-network-configuration" element={<NRNetworkConfiguration />} />

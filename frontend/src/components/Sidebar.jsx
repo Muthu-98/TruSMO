@@ -31,6 +31,12 @@ const sidebarItems = [
     description: 'Configure NR networks'
   },
   {
+    name: "Device KPI's",
+    href: '/device-kpi',
+    icon: Monitor,
+    description: 'View device KPIs'
+  },
+  {
     name: 'Alerts',
     href: '/alarms',
     icon: AlertTriangle,

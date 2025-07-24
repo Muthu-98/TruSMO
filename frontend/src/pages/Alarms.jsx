@@ -224,6 +224,7 @@ const Alarms = () => {
             <p className="text-gray-600 text-lg">Real-time alarm monitoring and analysis</p>
           </div>
           <div className="flex items-center gap-2">
+            <span className="font-medium text-gray-700">Duration</span>
             <Select value={durationSelect} onValueChange={handleDurationDropdown}>
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Duration" />
@@ -298,15 +299,14 @@ const Alarms = () => {
             <CardTitle className="text-xl font-bold text-gray-900">Alarm List</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Column Filters: align with table columns */}
             <div className="overflow-x-auto">
-              <table className="min-w-full table-fixed mb-2">
+              <table className="min-w-full table-fixed mb-2 border border-gray-200">
                 <thead>
                   <tr>
                     {columns.map(col => (
                       <th
                         key={col.key}
-                        className={`px-4 py-2 text-xs font-semibold text-gray-600 text-left ${col.minWidth} whitespace-nowrap`}
+                        className={`px-4 py-2 text-xs font-semibold text-gray-600 text-left ${col.minWidth} whitespace-nowrap border-b border-gray-200`}
                         style={{ width: '1%' }}
                       >
                         {col.label}
@@ -317,7 +317,7 @@ const Alarms = () => {
                     {columns.map(col => (
                       <td
                         key={col.key}
-                        className={`px-4 py-2 align-top ${col.minWidth} whitespace-nowrap`}
+                        className={`px-4 py-2 align-top ${col.minWidth} whitespace-nowrap border-b border-gray-100`}
                         style={{ width: '1%' }}
                       >
                         {col.filter}
@@ -333,23 +333,23 @@ const Alarms = () => {
                       </td>
                     </tr>
                   ) : (
-                    alarms.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(alarm => (
+                    alarms.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((alarm, idx) => (
                       <tr
                         key={alarm.id}
-                        className={`${severityRowBg[alarm.severity]}`}
+                        className={`${severityRowBg[alarm.severity]} ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                       >
-                        <td className={`px-4 py-2 ${columns[0].minWidth} whitespace-nowrap`}>{alarm.gnb}</td>
-                        <td className={`px-4 py-2 ${columns[1].minWidth} whitespace-nowrap`}>{alarm.alarmId}</td>
-                        <td className={`px-4 py-2 ${columns[2].minWidth} whitespace-nowrap`}>{alarm.dateTime}</td>
-                        <td className={`px-4 py-2 ${columns[3].minWidth} whitespace-nowrap`}>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[0].minWidth} whitespace-nowrap`}>{alarm.gnb}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[1].minWidth} whitespace-nowrap`}>{alarm.alarmId}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[2].minWidth} whitespace-nowrap`}>{alarm.dateTime}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[3].minWidth} whitespace-nowrap`}>
                           <Badge className={`border ${severityBadge[alarm.severity]}`}>
                             {alarm.severity.charAt(0).toUpperCase() + alarm.severity.slice(1)}
                           </Badge>
                         </td>
-                        <td className={`px-4 py-2 ${columns[4].minWidth} whitespace-nowrap`}>{alarm.probableCause}</td>
-                        <td className={`px-4 py-2 ${columns[5].minWidth} whitespace-nowrap`}>{alarm.alarmType}</td>
-                        <td className={`px-4 py-2 ${columns[6].minWidth} whitespace-nowrap`}>{alarm.specificProblem}</td>
-                        <td className={`px-4 py-2 ${columns[7].minWidth} whitespace-nowrap`}>{alarm.notificationType}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[4].minWidth} whitespace-nowrap`}>{alarm.probableCause}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[5].minWidth} whitespace-nowrap`}>{alarm.alarmType}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[6].minWidth} whitespace-nowrap`}>{alarm.specificProblem}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[7].minWidth} whitespace-nowrap`}>{alarm.notificationType}</td>
                       </tr>
                     ))
                   )}
