@@ -32,7 +32,7 @@ const sidebarItems = [
   },
   {
     name: 'Alerts',
-    href: '/alerts',
+    href: '/alarms',
     icon: AlertTriangle,
     description: 'System alerts'
   },

@@ -18,6 +18,7 @@ import NetworkDetails from './pages/NetworkDetails';
 import CellRelation from './pages/CellRelation'; // Add this import
 import FreqRelation from './pages/FreqRelation'; // Add this import
 import ExternalCell from './pages/ExternalCell'; // Add this import
+import Alarms from './pages/Alarms'; // Add this import
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/alarms" element={<Alarms />} /> {/* Add this route */}
             <Route path="/vendor-configuration" element={<VendorConfiguration />} />
             <Route path="/device-configuration" element={<DeviceConfiguration />} />
             <Route path="/nr-network-configuration" element={<NRNetworkConfiguration />} />
@@ -41,7 +43,7 @@ function App() {
             <Route path="/device/:gnbId/networks/:type/:id" element={<NetworkDetails />} />
             <Route path="/cell-relation" element={<CellRelation />} /> 
             <Route path="/freq-relation" element={<FreqRelation />} />
-            <Route path="/external-cell" element={<ExternalCell />} /> {/* Add this route */}
+            <Route path="/external-cell" element={<ExternalCell />} />
           </Routes>
         </Layout>
         <Toaster />
