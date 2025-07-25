@@ -22,19 +22,19 @@ const sidebarItems = [
     name: 'Device Configuration',
     href: '/device-configuration',
     icon: Monitor,
-    description: 'Configure devices'
+    description: 'Configure gNBs'
   },
   {
     name: 'NR Network Configuration',
     href: '/nr-network-configuration',
     icon: Network,
-    description: 'Configure NR networks'
+    description: 'Configure Neighbor gNBs'
   },
   {
     name: "Device KPI's",
     href: '/device-kpi',
     icon: BarChart,
-    description: 'View device KPIs'
+    description: 'Performance management'
   },
   {
     name: 'Alarms',
