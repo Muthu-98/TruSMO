@@ -20,6 +20,7 @@ import FreqRelation from './pages/FreqRelation'; // Add this import
 import ExternalCell from './pages/ExternalCell'; // Add this import
 import Alarms from './pages/Alarms'; // Add this import
 import DeviceKPI from './pages/DeviceKPI'; // Add this import
+import PMJobs from './pages/PMJobs'; // Add this import
 import './App.css';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/cell-relation" element={<CellRelation />} /> 
             <Route path="/freq-relation" element={<FreqRelation />} />
             <Route path="/external-cell" element={<ExternalCell />} />
+            <Route path="/device/:gnbId/pmjobs" element={<PMJobs />} />
           </Routes>
         </Layout>
         <Toaster />

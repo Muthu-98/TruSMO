@@ -9,6 +9,7 @@ import { Edit, Trash2, Plus, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
+// Mock data for NeighborGNBs and NRFrequencies
 const mockNeighborGNBs = [
   {
     nbrid: 1,
@@ -19,17 +20,35 @@ const mockNeighborGNBs = [
   }
 ];
 
+const mockNRFrequencies = [
+  {
+    nrfreqid: '1',
+    absoluteFrequencySSB: 54796,
+    sSBSubCarrierSpacing: 30
+  }
+];
+
 const NRNetworkConfiguration = () => {
+  // NeighborGNB state
   const [neighborList, setNeighborList] = useState(mockNeighborGNBs);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
-
     nbrGnbMnc: '',
     nbrGnbMcc: '',
     nbrGnbIdLength: '',
     availableExternalCells: 0
   });
 
+  // NR Frequency state
+  const [nrFrequencyList, setNrFrequencyList] = useState(mockNRFrequencies);
+  const [isAddFreqDialogOpen, setIsAddFreqDialogOpen] = useState(false);
+  const [freqFormData, setFreqFormData] = useState({
+    nrfreqid: '',
+    absoluteFrequencySSB: '',
+    sSBSubCarrierSpacing: ''
+  });
+
+  // Add NeighborGNB
   const handleSubmit = (e) => {
     e.preventDefault();
     const newNeighbor = {
@@ -48,6 +67,23 @@ const NRNetworkConfiguration = () => {
     });
   };
 
+  // Add NR Frequency
+  const handleFreqSubmit = (e) => {
+    e.preventDefault();
+    const newFreq = {
+      nrfreqid: freqFormData.nrfreqid,
+      absoluteFrequencySSB: Number(freqFormData.absoluteFrequencySSB),
+      sSBSubCarrierSpacing: Number(freqFormData.sSBSubCarrierSpacing)
+    };
+    setNrFrequencyList(prev => [...prev, newFreq]);
+    setIsAddFreqDialogOpen(false);
+    setFreqFormData({
+      nrfreqid: '',
+      absoluteFrequencySSB: '',
+      sSBSubCarrierSpacing: ''
+    });
+  };
+
   return (
     <div className="space-y-6">
       <motion.div 
@@ -55,9 +91,95 @@ const NRNetworkConfiguration = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">NeighborGNB Configuration</h1>
-        <p className="text-gray-600 text-lg">Manage NeighborGNBs and their external cells</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">NR Network Configuration</h1>
+        <p className="text-gray-600 text-lg">Manage all NR Netwworks</p>
       </motion.div>
+
+      {/* NR Frequency Table */}
+      <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-xl font-bold text-gray-900">List of NR Frequency</CardTitle>
+            <Dialog open={isAddFreqDialogOpen} onOpenChange={setIsAddFreqDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add NR Frequency
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-lg">
+                <DialogHeader>
+                  <DialogTitle>Add NR Frequency</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleFreqSubmit} className="space-y-4">
+                  <div>
+                    <Label htmlFor="nrfreqid">NR Frequency ID</Label>
+                    <Input
+                      id="nrfreqid"
+                      value={freqFormData.nrfreqid}
+                      onChange={e => setFreqFormData({ ...freqFormData, nrfreqid: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="absoluteFrequencySSB">Absolute Frequency SSB</Label>
+                    <Input
+                      id="absoluteFrequencySSB"
+                      type="number"
+                      value={freqFormData.absoluteFrequencySSB}
+                      onChange={e => setFreqFormData({ ...freqFormData, absoluteFrequencySSB: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="sSBSubCarrierSpacing">SSB SubCarrier Spacing</Label>
+                    <Input
+                      id="sSBSubCarrierSpacing"
+                      type="number"
+                      value={freqFormData.sSBSubCarrierSpacing}
+                      onChange={e => setFreqFormData({ ...freqFormData, sSBSubCarrierSpacing: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-2 pt-4">
+                    <Button type="button" variant="outline" onClick={() => setIsAddFreqDialogOpen(false)}>Cancel</Button>
+                    <Button type="submit" className="bg-gradient-to-r from-blue-500 to-blue-600">Add</Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>NR Frequency ID</TableHead>
+                <TableHead>Absolute Frequency SSB</TableHead>
+                <TableHead>SSB SubCarrier Spacing</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {nrFrequencyList.map((freq, idx) => (
+                <TableRow key={freq.nrfreqid || idx}>
+                  <TableCell>{freq.nrfreqid}</TableCell>
+                  <TableCell>{freq.absoluteFrequencySSB}</TableCell>
+                  <TableCell>{freq.sSBSubCarrierSpacing}</TableCell>
+                  <TableCell>
+                    <div className="flex space-x-2">
+                      <Button variant="outline" size="sm" className="hover:bg-blue-50"><Edit className="h-4 w-4" /></Button>
+                      <Button variant="outline" size="sm" className="hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      {/* NeighborGNB Table */}
       <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -74,16 +196,6 @@ const NRNetworkConfiguration = () => {
                   <DialogTitle>Add NeighborGNB</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="nbrGnbId">nbrId</Label>
-                    <Input
-                      id="nbrGnbId"
-                      type="number"
-                      value={formData.nbrGnbId}
-                      onChange={e => setFormData({ ...formData, nbrGnbIdLength: e.target.value })}
-                      required
-                    />
-                  </div>
                   <div>
                     <Label htmlFor="nbrGnbMnc">nbrGnbMnc</Label>
                     <Input
