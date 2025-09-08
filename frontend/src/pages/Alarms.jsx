@@ -7,6 +7,7 @@ import { Input } from '../components/ui/input';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/select';
 import { Calendar } from '../components/ui/calendar';
 import { OctagonAlert as AlarmOctagon, TriangleAlert as AlarmTriangle, CircleAlert as AlarmCircle } from 'lucide-react';
+import { Button } from '../components/ui/button';
 
 const SEVERITIES = [
   { key: 'critical', label: 'Critical', color: 'red', icon: AlarmOctagon },
@@ -25,10 +26,24 @@ const DURATION_OPTIONS = [
   { label: 'Custom', value: 'custom' },
 ];
 
+const COLUMN_OPTIONS = [
+  { key: 'alarm_list_id', label: 'AlarmListId' }, // New column
+  { key: 'alarm_id', label: 'AlarmId' },
+  { key: 'date_time', label: 'Date/Time' },
+  { key: 'severity', label: 'Severity' },
+  { key: 'probable_cause', label: 'Probable Cause' },
+  { key: 'alarm_type', label: 'Alarm Type' },
+  { key: 'specific_problem', label: 'Specific Problem' },
+  { key: 'notification_type', label: 'Notification Type' },
+  { key: 'ack_state', label: 'AckState' }, // New column
+  { key: 'ack_time', label: 'AckTime' }    // New column
+];
+
 // Example alarm data (updated to match your table)
 const SAMPLE_ALARMS = [
   {
     id: 1,
+    alarm_list_id: 'AL001', // Add this field
     gnb: 'gNB001',
     alarmId: 'A12345',
     dateTime: '2025-07-24 09:15:00',
@@ -37,9 +52,12 @@ const SAMPLE_ALARMS = [
     alarmType: 'Power Alarm',
     specificProblem: 'PSU Overvoltage',
     notificationType: 'Immediate',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
   {
     id: 2,
+    alarm_list_id: 'AL002', // Add this field
     gnb: 'gNB002',
     alarmId: 'A12346',
     dateTime: '2025-07-24 10:30:00',
@@ -48,9 +66,12 @@ const SAMPLE_ALARMS = [
     alarmType: 'Env Alarm',
     specificProblem: 'High Internal Temp',
     notificationType: 'Delayed',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
   {
     id: 3,
+    alarm_list_id: 'AL003', // Add this field
     gnb: 'gNB003',
     alarmId: 'A12347',
     dateTime: '2025-07-24 11:05:00',
@@ -59,9 +80,12 @@ const SAMPLE_ALARMS = [
     alarmType: 'Sync Alarm',
     specificProblem: 'GPS Sync Drift',
     notificationType: 'Immediate',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
   {
     id: 4,
+    alarm_list_id: 'AL004', // Add this field
     gnb: 'gNB004',
     alarmId: 'A12348',
     dateTime: '2025-07-24 12:00:00',
@@ -70,9 +94,12 @@ const SAMPLE_ALARMS = [
     alarmType: 'Mgmt Alarm',
     specificProblem: 'VLAN Misconfiguration',
     notificationType: 'Immediate',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
   {
     id: 5,
+    alarm_list_id: 'AL005', // Add this field
     gnb: 'gNB005',
     alarmId: 'A12349',
     dateTime: '2025-07-24 12:45:00',
@@ -81,9 +108,12 @@ const SAMPLE_ALARMS = [
     alarmType: 'Transport',
     specificProblem: 'Fiber Disconnected',
     notificationType: 'Delayed',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
   {
     id: 6,
+    alarm_list_id: 'AL006', // Add this field
     gnb: 'gNB006',
     alarmId: 'A12350',
     dateTime: '2025-07-24 13:30:00',
@@ -92,6 +122,8 @@ const SAMPLE_ALARMS = [
     alarmType: 'Power Alarm',
     specificProblem: 'Current Surge Detected',
     notificationType: 'Immediate',
+    ack_state: 'UNACK',
+    ack_time: new Date().toISOString()
   },
 ];
 
@@ -194,25 +226,26 @@ const Alarms = () => {
 
   // Table columns for alignment
   const columns = [
-    { key: 'gnb', label: 'gNB', minWidth: 'min-w-[110px]', filter: <Input className="w-full" placeholder="gNB" value={filters.gnb} onChange={e => handleFilterChange('gnb', e.target.value)} /> },
-    { key: 'alarmId', label: 'Alarm ID', minWidth: 'min-w-[110px]', filter: <Input className="w-full" placeholder="Alarm ID" value={filters.alarmId} onChange={e => handleFilterChange('alarmId', e.target.value)} /> },
-    { key: 'dateTime', label: 'Date/Time', minWidth: 'min-w-[170px]', filter: <Input className="w-full" type="date" value={filters.date || ''} onChange={e => handleFilterChange('date', e.target.value)} /> },
-    { key: 'severity', label: 'Severity', minWidth: 'min-w-[110px]', filter: (
-      <Select value={filters.severity || "all"} onValueChange={v => handleFilterChange('severity', v === "all" ? "" : v)}>
-        <SelectTrigger className="w-full"><SelectValue placeholder="Severity" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All</SelectItem>
-          {SEVERITIES.map(sev => (
-            <SelectItem key={sev.key} value={sev.key}>{sev.label}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    ) },
-    { key: 'probableCause', label: 'Probable Cause', minWidth: 'min-w-[150px]', filter: <Input className="w-full" placeholder="Probable Cause" value={filters.probableCause} onChange={e => handleFilterChange('probableCause', e.target.value)} /> },
-    { key: 'alarmType', label: 'Alarm Type', minWidth: 'min-w-[120px]', filter: <Input className="w-full" placeholder="Alarm Type" value={filters.alarmType} onChange={e => handleFilterChange('alarmType', e.target.value)} /> },
-    { key: 'specificProblem', label: 'Specific Problem', minWidth: 'min-w-[170px]', filter: <Input className="w-full" placeholder="Specific Problem" value={filters.specificProblem} onChange={e => handleFilterChange('specificProblem', e.target.value)} /> },
-    { key: 'notificationType', label: 'Notification Type', minWidth: 'min-w-[140px]', filter: <Input className="w-full" placeholder="Notification Type" value={filters.notificationType} onChange={e => handleFilterChange('notificationType', e.target.value)} /> },
+    { key: 'alarm_list_id', label: 'AlarmListId', minWidth: 'min-w-[120px]' }, // New column
+    { key: 'alarmId', label: 'Alarm ID', minWidth: 'min-w-[110px]' },
+    { key: 'dateTime', label: 'Date/Time', minWidth: 'min-w-[170px]' },
+    { key: 'severity', label: 'Severity', minWidth: 'min-w-[110px]' },
+    { key: 'probableCause', label: 'Probable Cause', minWidth: 'min-w-[150px]' },
+    { key: 'alarmType', label: 'Alarm Type', minWidth: 'min-w-[120px]' },
+    { key: 'specificProblem', label: 'Specific Problem', minWidth: 'min-w-[170px]' },
+    { key: 'notificationType', label: 'Notification Type', minWidth: 'min-w-[140px]' },
+    { key: 'ack_state', label: 'AckState', minWidth: 'min-w-[120px]' }, // New column
+    { key: 'ack_time', label: 'AckTime', minWidth: 'min-w-[170px]' },   // New column
   ];
+
+  // Handler for ACK/UNACK
+  const handleAckState = (idx, state) => {
+    setAlarms(prev =>
+      prev.map((alarm, i) =>
+        i === idx ? { ...alarm, ack_state: state, ack_time: new Date().toISOString() } : alarm
+      )
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -338,7 +371,7 @@ const Alarms = () => {
                         key={alarm.id}
                         className={`${severityRowBg[alarm.severity]} ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                       >
-                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[0].minWidth} whitespace-nowrap`}>{alarm.gnb}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[0].minWidth} whitespace-nowrap`}>{alarm.alarm_list_id}</td>
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[1].minWidth} whitespace-nowrap`}>{alarm.alarmId}</td>
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[2].minWidth} whitespace-nowrap`}>{alarm.dateTime}</td>
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[3].minWidth} whitespace-nowrap`}>
@@ -350,6 +383,26 @@ const Alarms = () => {
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[5].minWidth} whitespace-nowrap`}>{alarm.alarmType}</td>
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[6].minWidth} whitespace-nowrap`}>{alarm.specificProblem}</td>
                         <td className={`px-4 py-2 border-b border-gray-100 ${columns[7].minWidth} whitespace-nowrap`}>{alarm.notificationType}</td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[8].minWidth} whitespace-nowrap`}>
+                          <Button
+                            size="sm"
+                            variant={alarm.ack_state === 'ACK' ? 'default' : 'outline'}
+                            className="mr-2"
+                            onClick={() => handleAckState(idx, 'ACK')}
+                          >
+                            ACK
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant={alarm.ack_state === 'UNACK' ? 'default' : 'outline'}
+                            onClick={() => handleAckState(idx, 'UNACK')}
+                          >
+                            UNACK
+                          </Button>
+                        </td>
+                        <td className={`px-4 py-2 border-b border-gray-100 ${columns[9].minWidth} whitespace-nowrap`}>
+                          {alarm.ack_time ? new Date(alarm.ack_time).toLocaleString() : ''}
+                        </td>
                       </tr>
                     ))
                   )}
