@@ -33,7 +33,7 @@ const sidebarItems = [
   {
     name: 'Software Management',
     href: '/SoftwareMgmt',
-    icon: Network,
+    icon: Cog,
     description: 'Manage software for gNBs'
   },
   {

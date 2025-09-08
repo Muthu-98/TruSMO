@@ -192,7 +192,7 @@ const SoftwareMgmt = () => {
 	return (
 		<div className="space-y-6">
 			<div className="flex items-center space-x-4">
-				<h1 className="text-4xl font-bold text-gray-900 mb-2">Software Mgmt</h1>
+				<h1 className="text-4xl font-bold text-gray-900 mb-2">Software Management</h1>
 			</div>
 			<Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
 				<CardHeader>
