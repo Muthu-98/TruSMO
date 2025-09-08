@@ -31,6 +31,12 @@ const sidebarItems = [
     description: 'Configure Neighbor gNBs'
   },
   {
+    name: 'Software Management',
+    href: '/SoftwareMgmt',
+    icon: Network,
+    description: 'Manage software for gNBs'
+  },
+  {
     name: "Device KPI's",
     href: '/device-kpi',
     icon: BarChart,
