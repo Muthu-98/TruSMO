@@ -43,6 +43,12 @@ const sidebarItems = [
     description: 'Performance management'
   },
   {
+    name: "Log Management",
+    href: '/Trace',
+    icon: BarChart,
+    description: 'Performance management'
+  },
+  {
     name: 'Alarms',
     href: '/alarms',
     icon: AlertTriangle,

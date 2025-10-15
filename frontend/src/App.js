@@ -22,6 +22,7 @@ import Alarms from './pages/Alarms'; // Add this import
 import DeviceKPI from './pages/DeviceKPI'; // Add this import
 import PMJobs from './pages/PMJobs'; // Add this import
 import Software from './pages/Software'; // Add this import
+import Trace from './pages/Trace'; // Add this import
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/device-configuration" element={<DeviceConfiguration />} />
             <Route path="/nr-network-configuration" element={<NRNetworkConfiguration />} />
             <Route path="/SoftwareMgmt" element={<Software />} />
+            <Route path="/Trace" element={<Trace />} />
             <Route path="/device/:gnbId/du" element={<DUView />} />
             <Route path="/device/:gnbId/du/:duId/cell" element={<CellView />} />
             <Route path="/device/:gnbId/du/:duId/nrsector" element={<NRSectorView />} />
