@@ -46,7 +46,7 @@ const sidebarItems = [
     name: "Log Management",
     href: '/Trace',
     icon: FileText,
-    description: 'Performance management'
+    description: 'Trace management'
   },
   {
     name: 'Alarms',
