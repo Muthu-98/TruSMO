@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe, Settings, Monitor, X, AlertTriangle, Cog, BarChart, Network } from 'lucide-react';
+import { Globe, Settings, Monitor, X, FileText, AlertTriangle, Cog, BarChart, Network } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 
@@ -45,7 +45,7 @@ const sidebarItems = [
   {
     name: "Log Management",
     href: '/Trace',
-    icon: BarChart,
+    icon: FileText,
     description: 'Performance management'
   },
   {
