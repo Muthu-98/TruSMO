@@ -141,7 +141,7 @@ const Trace = () => {
 			<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
 				<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 					<div>
-						<h1 className="text-4xl font-bold text-gray-900 mb-1">Trace Log Management</h1>
+						<h1 className="text-4xl font-bold text-gray-900 mb-1">Log Management</h1>
 					</div>
 					<div className="flex items-center gap-2">
 						<span className="font-medium text-gray-700">Duration</span>
