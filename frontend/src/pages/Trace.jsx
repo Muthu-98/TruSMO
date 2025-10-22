@@ -5,6 +5,7 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '../components/
 import { Input } from '../components/ui/input';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/select';
 import { Badge } from '../components/ui/badge';
+import { Button } from '../components/ui/button';
 
 // Mock duration and status options
 const DURATION_OPTIONS = [
@@ -81,9 +82,10 @@ const Trace = () => {
 	const [customStart, setCustomStart] = useState('');
 	const [customEnd, setCustomEnd] = useState('');
 	const [page, setPage] = useState(1);
+	const [traceData, setTraceData] = useState(MOCK_TRACE_DATA);
 
-	// Filtering logic
-	const filteredData = MOCK_TRACE_DATA.filter(row => {
+	// Filtering logic (use state so Download button can update items)
+	const filteredData = traceData.filter(row => {
 		return (
 			(filters.gnb === '' || row.gnb.toLowerCase().includes(filters.gnb.toLowerCase())) &&
 			(filters.traceFile === '' || row.traceFile.toLowerCase().includes(filters.traceFile.toLowerCase())) &&
@@ -118,11 +120,23 @@ const Trace = () => {
 		}
 	};
 
+	// Simulate download action for a trace row
+	const handleDownload = (id) => {
+		setTraceData(prev =>
+			prev.map(item =>
+				item.id === id
+					? { ...item, traceStatus: 'completed', reason: '' }
+					: item
+			)
+		);
+	};
+
 	const columns = [
 		{ key: 'gnb', label: 'gNB', minWidth: 'min-w-[110px]', filter: <Input className="w-full" placeholder="gNB" value={filters.gnb} onChange={e => handleFilterChange('gnb', e.target.value)} /> },
 		{ key: 'dateTime', label: 'Date/Time', minWidth: 'min-w-[170px]', filter: <Input className="w-full" type="date" value={filters.date} onChange={e => handleFilterChange('date', e.target.value)} /> },
-		{ key: 'traceFile', label: 'File Name', minWidth: 'min-w-[200px]', filter: <Input className="w-full" placeholder="Trace File" value={filters.traceFile} onChange={e => handleFilterChange('traceFile', e.target.value)} /> },
-		{ key: 'traceStatus', label: 'Download Status', minWidth: 'min-w-[140px]', filter: (
+		{ key: 'traceFile', label: 'Trace File', minWidth: 'min-w-[200px]', filter: <Input className="w-full" placeholder="Trace File" value={filters.traceFile} onChange={e => handleFilterChange('traceFile', e.target.value)} /> },
+		{ key: 'download', label: 'Download', minWidth: 'min-w-[120px]', filter: null },
+		{ key: 'traceStatus', label: 'Trace Status', minWidth: 'min-w-[140px]', filter: (
 			<Select value={filters.traceStatus} onValueChange={v => handleFilterChange('traceStatus', v)}>
 				<SelectTrigger className="w-full"><SelectValue placeholder="Trace Status" /></SelectTrigger>
 				<SelectContent>
@@ -241,11 +255,16 @@ const Trace = () => {
 													<td className={`px-4 py-2 border-b border-gray-100 ${columns[1].minWidth} whitespace-nowrap`}>{row.dateTime}</td>
 													<td className={`px-4 py-2 border-b border-gray-100 ${columns[2].minWidth} whitespace-nowrap`}>{row.traceFile}</td>
 													<td className={`px-4 py-2 border-b border-gray-100 ${columns[3].minWidth} whitespace-nowrap`}>
+														<Button size="sm" variant="outline" onClick={() => handleDownload(row.id)} disabled={row.traceStatus === 'completed'}>
+															Download
+														</Button>
+													</td>
+													<td className={`px-4 py-2 border-b border-gray-100 ${columns[4].minWidth} whitespace-nowrap`}>
 														<Badge className={`border ${statusBadge[row.traceStatus]}`}>
 															{row.traceStatus.toUpperCase()}
 														</Badge>
 													</td>
-													<td className={`px-4 py-2 border-b border-gray-100 ${columns[4].minWidth} whitespace-nowrap`}>{row.reason}</td>
+													<td className={`px-4 py-2 border-b border-gray-100 ${columns[5]?.minWidth || 'min-w-[200px]'} whitespace-nowrap`}>{row.reason}</td>
 												</tr>
 											))
 									)}
