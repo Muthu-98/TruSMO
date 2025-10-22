@@ -54,12 +54,12 @@ const sidebarItems = [
     icon: AlertTriangle,
     description: 'Fault management'
   },
-  // {
-  //   name: 'Settings',
-  //   href: '/settings',
-  //   icon: Cog,
-  //   description: 'System settings'
-  // },
+  {
+    name: 'Device History',
+    href: '/device-history',
+    icon: Cog,
+    description: 'View device history'
+  },
 ];
 
 const Sidebar = ({ isOpen, onClose }) => {
