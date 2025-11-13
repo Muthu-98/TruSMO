@@ -448,12 +448,12 @@ const Trace = () => {
 									{traceJobs.some(j => !j.isRunning) ? (
 										<>
 											<Play className="h-5 w-5" />
-											Start Trace
+											Start Log
 										</>
 									) : (
 										<>
 											<Square className="h-5 w-5" />
-											Stop Trace
+											Stop Log
 										</>
 									)}
 								</Button>
