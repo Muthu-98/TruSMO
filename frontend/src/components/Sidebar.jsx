@@ -134,12 +134,12 @@ const Sidebar = ({ isOpen, onClose }) => {
           })}
         </nav>
 
-        <div className="absolute bottom-4 left-4 right-4">
+        {/* <div className="absolute bottom-4 left-4 right-4">
           <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
             <p className="text-xs text-blue-700 font-medium">TruSMO Platform</p>
             <p className="text-xs text-blue-600">Version 1.0.0</p>
           </div>
-        </div>
+        </div> */}
       </motion.aside>
     </>
   );
