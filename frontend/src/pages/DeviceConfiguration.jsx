@@ -373,7 +373,7 @@ const DeviceConfiguration = () => {
                     <TableHead>Available CUCPs</TableHead>
                     <TableHead>Available CUUPs</TableHead>
                     <TableHead>Available Networks</TableHead>
-                    <TableHead>Available PM Jobs</TableHead> {/* Added column */}
+                    {/* <TableHead>Available PM Jobs</TableHead>  */}
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -426,14 +426,14 @@ const DeviceConfiguration = () => {
                           </Button>
                         </Link>
                       </TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         <Link to={`/device/${device.gNBId}/pmjobs`}>
                           <Button variant="outline" size="sm" className="hover:bg-cyan-50">
                             <Eye className="h-4 w-4 mr-1" />
                             View
                           </Button>
                         </Link>
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell>
                         <div className="flex space-x-2">
                           <Button 
